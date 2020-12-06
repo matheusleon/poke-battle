@@ -1,0 +1,22 @@
+{
+  "name": "poke-battle",
+  "version": "1.0.0",
+  "description": "Simulation of pokemon battles",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mlan0/poke-battle.git"
+  },
+  "author": "Matheus Leon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mlan0/poke-battle/issues"
+  },
+  "homepage": "https://github.com/mlan0/poke-battle#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
