@@ -2,13 +2,19 @@
     <head>
         <title> Poke Battle </title>
     </head>
-    <body>
+    <body onload="renderPokemonDropdownLists()">
         <h1> Poke Battle - Singleplayer </h1>
 
-        <div id='pokemon-container'>
-            <select id="pokemon_names_dropdown" name="pokemon_names"> </select>
+        <div id='pokemon-menu'>
+            <select id="pokemon_names_dropdown1" name="pokemon_names"> </select>
             </br> Versus </br>
             <select id="pokemon_names_dropdown2" name="pokemon_names"> </select>
+            </br>
+
+            <button id='play_button' onclick="playGame()"> Play </button>
+        </div>
+
+        <div id='pokemon-container'>
         </div>
 
         <script src='scripts/singleplayer.js'> </script>
