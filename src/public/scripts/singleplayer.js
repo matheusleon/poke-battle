@@ -1,17 +1,16 @@
-function clearContainers() {
+function clearMenu() {
     var pokemon_menu = document.querySelector('#pokemon-menu');
     pokemon_menu.innerHTML = "";
-    var pokemon_container = document.querySelector('#pokemon-container');
-    //pokemon_container.innerHTML = "";
 }
+
+// TODO: Create functions to change visibility of menu and game
+// fuction changeVisibility() {}
 
 function capitalizeFirstvarter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function renderPokemonDropdownLists() {
-    //clearContainers();
-
     fetchKantoPokemon().then(allPokemons => {  
         renderPokemonDropdownList(allPokemons.results, 'pokemon_names_dropdown1');
         renderPokemonDropdownList(allPokemons.results, 'pokemon_names_dropdown2');
@@ -43,72 +42,63 @@ function fetchKantoPokemon() {
         })
 }
 
-function renderPokemonImage(pokemon_name, container_div) {
+function renderPokemonImage(pokemon_name, player_id) {
     pokemon_info_url = 'https://pokeapi.co/api/v2/pokemon/' + pokemon_name;
-    var poke_img_container = document.createElement('div')
-    poke_img_container.classList.add('image')
 
     fetch(pokemon_info_url)
     .then(results => results.json())
     .then(pokemon_data => {
-        var poke_img = document.createElement('img')
+        var poke_img = document.getElementById(`pokemon${player_id}-img`)
         poke_img.srcset = `https://pokeres.bastionbot.org/images/pokemon/${pokemon_data.id}.png`
-        poke_img_container.append(poke_img)
-
-        container_div.append(poke_img_container);
     })
 }
 
 async function getPokemonMoves(pokemon_name) {
     pokemon_info_url = 'https://pokeapi.co/api/v2/pokemon/' + pokemon_name;
     var moves = []
-    var counter = 0;
 
     await fetch(pokemon_info_url)
     .then(results => results.json())
     .then(pokemon_data => {
         pokemon_data.moves.forEach(element => {
-            //console.log(element)
             if (moves.length < 4 && element.version_group_details[0].move_learn_method.name == 'level-up') {
                 moves.push(element.move.name)
-                //console.log('aq ' + [element.move.name, element.move.url])
-                counter++;
             }
         });
     })
     return moves;
 }
 
-function renderPokemonMoves(pokemon_name, container_div, player_id) {
+function renderPokemonMoves(pokemon_name, player_id) {
     pokemon_info_url = 'https://pokeapi.co/api/v2/pokemon/' + pokemon_name;
     
     getPokemonMoves(pokemon_name).then(moves => {
         counter = 0
         for (var i = 0; i < 4; i++) {
-            var button_name = `player${player_id}-move${i}`;
+            var button_name = `pokemon${player_id}-move${i}`;
             var poke_move = document.getElementById(button_name)
             poke_move.innerHTML = moves[i];
-
-            // var poke_move = document.createElement("BUTTON");
-            // poke_move.innerHTML = move;
-            // container_div.append(poke_move);
-
+            poke_move.style.visibility = "visible";
         }
     });
 }
 
-
-function renderPokemon(pokemon_name, all_pokemon_container, player_id) {
-    var poke_container = document.createElement("div")
-    //poke_container.classList.add('ui', 'card');
-    renderPokemonImage(pokemon_name, poke_container);
-    renderPokemonMoves(pokemon_name, all_pokemon_container, player_id);
-
-    var pokeName = document.createElement('h4') 
+function renderPokemonName(pokemon_name, player_id) {
+    var pokeName = document.getElementById(`pokemon${player_id}-name`) 
     pokeName.innerText = pokemon_name
+}
 
-    poke_container.append(pokeName);
-    all_pokemon_container.appendChild(poke_container);    
+function renderPokemon(pokemon_name, player_id) {
+    var poke_container = document.getElementById("player" + player_id)
+
+    renderPokemonImage(pokemon_name, player_id);
+    renderPokemonMoves(pokemon_name, player_id);
+    renderPokemonName(pokemon_name, player_id);
+}
+
+function startSingleplayer() {
+    renderPokemonDropdownLists(); 
+    //playGame();
 }
 
 function playGame() {
@@ -117,9 +107,7 @@ function playGame() {
     //var pokemon1 = 'charmander';
     //var pokemon2 = 'squirtle';
 
-    var all_pokemon_container = document.querySelector('#pokemon-container');
-
-    renderPokemon(pokemon1, all_pokemon_container, 0);
-    renderPokemon(pokemon2, all_pokemon_container, 0);
-    clearContainers();
+    renderPokemon(pokemon1, 0);
+    renderPokemon(pokemon2, 1);
+    clearMenu();
 }

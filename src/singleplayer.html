@@ -2,8 +2,7 @@
     <head>
         <title> Poke Battle </title>
     </head>
-    <body onload="renderPokemonDropdownLists()">
-    <!--<body onload="playGame()"> -->
+    <body onload="startSingleplayer()"> 
         <h1> Poke Battle - Singleplayer </h1>
 
         <div id='pokemon-menu'>
@@ -17,19 +16,25 @@
 
         <div id='pokemon-container'>
             <div id='player0'> 
-                <div id='player0-moves'> 
-                    <button id='player0-move0'> </button>
-                    <button id='player0-move1'> </button>
-                    <button id='player0-move2'> </button>
-                    <button id='player0-move3'> </button>
+                <h1 id='pokemon0-name'> </h1>
+                <img src = "" id='pokemon0-img'>
+
+                <div id='pokemon0-moves'> 
+                    <button id='pokemon0-move0' style="visibility: hidden;"> </button>
+                    <button id='pokemon0-move1' style="visibility: hidden;"> </button>
+                    <button id='pokemon0-move2' style="visibility: hidden;"> </button>
+                    <button id='pokemon0-move3' style="visibility: hidden;"> </button>
                 </div>
             </div>
             <div id='player1'> 
-                <div id='player1-moves'> 
-                    <button id='player1-move0'> </button>
-                    <button id='player1-move1'> </button>
-                    <button id='player1-move2'> </button>
-                    <button id='player1-move3'> </button>
+                <h1 id='pokemon1-name'> </h1>
+                <img src = "" id='pokemon1-img'>
+
+                <div id='pokemon1-moves'> 
+                    <button id='pokemon1-move0' style="visibility: hidden;"> </button>
+                    <button id='pokemon1-move1' style="visibility: hidden;"> </button>
+                    <button id='pokemon1-move2' style="visibility: hidden;"> </button>
+                    <button id='pokemon1-move3' style="visibility: hidden;"> </button>
                 </div>
             </div>
         </div>
