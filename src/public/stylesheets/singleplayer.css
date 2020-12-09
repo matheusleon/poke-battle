@@ -1,0 +1,13 @@
+#title-name {
+    text-align: center;
+}
+
+#player0 {
+    float: left;
+    background-color: aqua;
+}
+
+#player1 {
+    float: right;
+    background-color: brown;
+}

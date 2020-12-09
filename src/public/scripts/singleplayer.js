@@ -97,15 +97,15 @@ function renderPokemon(pokemon_name, player_id) {
 }
 
 function startSingleplayer() {
-    renderPokemonDropdownLists(); 
-    //playGame();
+    //renderPokemonDropdownLists(); 
+    playGame();
 }
 
 function playGame() {
-    var pokemon1 = document.getElementById('pokemon_names_dropdown1').value
-    var pokemon2 = document.getElementById('pokemon_names_dropdown2').value
-    //var pokemon1 = 'charmander';
-    //var pokemon2 = 'squirtle';
+    //var pokemon1 = document.getElementById('pokemon_names_dropdown1').value
+    //var pokemon2 = document.getElementById('pokemon_names_dropdown2').value
+    var pokemon1 = 'charmander';
+    var pokemon2 = 'squirtle';
 
     renderPokemon(pokemon1, 0);
     renderPokemon(pokemon2, 1);
