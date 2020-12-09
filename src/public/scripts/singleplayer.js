@@ -131,41 +131,50 @@ function updatePokemonHealth(player_id) {
     pokeHealth.innerText = `${health[player_id]} / ${max_health[player_id]}`;
 }
 
-async function player0move0() {
+async function playerMove(player_id, move_id) {
     var damage = 0
     var message = ''
 
     // Fetch move from Api. Ex.: https://pokeapi.co/api/v2/move/52/
-    await fetch(moves[0][0][1])
+    await fetch(moves[player_id][move_id][1])
     .then(response => response.json())
     .then(move_data => {
-        console.log('power = ' + move_data.power)
+        //console.log('power = ' + move_data.power)
         damage = move_data.power
         message = move_data.flavor_text_entries[0].flavor_text
-        health[1] = Math.max(0, health[1] - damage)
-        updatePokemonHealth(1)
+        health[player_id^1] = Math.max(0, health[player_id^1] - damage)
+        updatePokemonHealth(player_id^1)
     })
     var moves_container = document.getElementById('moves-text');
     //moves_container.innerHTML += `Jogador 1 causou ${damage} de dano<br>`;
-    moves_container.innerHTML += pokemon[0] + ' uses ' + moves[0][0][0] + `!<br>`;
+    moves_container.innerHTML += pokemon[player_id] + ' uses ' + moves[player_id][move_id][0] + `!<br>`;
     moves_container.innerHTML += message + `<br>`;
 
-    if (health[1] <= 0) {
+    enableButtons(player_id^1);
+    disableButtons(player_id);
+
+    if (health[0] <= 0 || health[1] <= 0) {
         endGame();
     }
 }
 
-function disableButtons() {
-    for (var i = 0; i < 2; i++) {
-        for (var j = 0; j < 4; j++) {
-            var button_name = `pokemon${i}-move${j}`;
-            document.getElementById(button_name).disabled = true;
-        }
+function disableButtons(player_id) {
+    for (var j = 0; j < 4; j++) {
+        var button_name = `pokemon${player_id}-move${j}`;
+        document.getElementById(button_name).disabled = true;
+    }
+}
+
+function enableButtons(player_id) {
+    for (var j = 0; j < 4; j++) {
+        var button_name = `pokemon${player_id}-move${j}`;
+        document.getElementById(button_name).disabled = false;
     }
 }
 
 function endGame() {
-    disableButtons();
+    disableButtons(0);
+    disableButtons(1);
 
     if (health[0] <= 0) {
         var moves_container = document.getElementById('moves-text');
@@ -177,17 +186,18 @@ function endGame() {
 }
 
 function startSingleplayer() {
-    renderPokemonDropdownLists(); 
-    //playGame();
+    //renderPokemonDropdownLists(); 
+    playGame();
 }
 
 function playGame() {
-    pokemon[0] = document.getElementById('pokemon_names_dropdown1').value
-    pokemon[1] = document.getElementById('pokemon_names_dropdown2').value
-    //pokemon[0] = 'charmander';
-    //pokemon[1] = 'squirtle';
+    //pokemon[0] = document.getElementById('pokemon_names_dropdown1').value
+    //pokemon[1] = document.getElementById('pokemon_names_dropdown2').value
+    pokemon[0] = 'charmander';
+    pokemon[1] = 'squirtle';
 
     renderPokemon(pokemon[0], 0);
     renderPokemon(pokemon[1], 1);
+    disableButtons(1);
     clearMenu();
 }
