@@ -3,6 +3,7 @@
         <title> Poke Battle </title>
     </head>
     <body onload="renderPokemonDropdownLists()">
+    <!--<body onload="playGame()"> -->
         <h1> Poke Battle - Singleplayer </h1>
 
         <div id='pokemon-menu'>
@@ -15,6 +16,22 @@
         </div>
 
         <div id='pokemon-container'>
+            <div id='player0'> 
+                <div id='player0-moves'> 
+                    <button id='player0-move0'> </button>
+                    <button id='player0-move1'> </button>
+                    <button id='player0-move2'> </button>
+                    <button id='player0-move3'> </button>
+                </div>
+            </div>
+            <div id='player1'> 
+                <div id='player1-moves'> 
+                    <button id='player1-move0'> </button>
+                    <button id='player1-move1'> </button>
+                    <button id='player1-move2'> </button>
+                    <button id='player1-move3'> </button>
+                </div>
+            </div>
         </div>
 
         <script src='scripts/singleplayer.js'> </script>
