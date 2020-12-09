@@ -2,12 +2,36 @@
     text-align: center;
 }
 
+#pokemon0-name {
+    text-align: center;
+}
+
+#pokemon1-name {
+    text-align: center;
+}
+
 #player0 {
     float: left;
     background-color: aqua;
+    margin-left: 10%;
 }
 
 #player1 {
     float: right;
     background-color: brown;
+    margin-right: 10%;
+}
+
+#pokemon-container {
+    background-color: cornflowerblue;
+    /*display: inline-block;*/
+    width: 100%;
+}
+
+#moves-text {
+    position: relative;
+    background-color: coral;
+    text-align: center;
+    clear: both;
+    font-size: 25px;
 }
