@@ -137,7 +137,6 @@ async function playerMove(player_id, move_id) {
     })
 
     var moves_container = document.getElementById('moves-text');
-    //moves_container.innerHTML += `Jogador 1 causou ${damage} de dano<br>`;
     moves_container.innerHTML += pokemon[player_id] + ' uses ' + moves[player_id][move_id][0] + `!<br>`;
     moves_container.innerHTML += message + `<br>`;
     
@@ -169,10 +168,10 @@ function endGame() {
 
     if (health[0] <= 0) {
         var moves_container = document.getElementById('moves-text');
-        moves_container.innerHTML += `Jogador 2 venceu <br>`;
+        moves_container.innerHTML += `Player 2 wins! <br>`;
     } else {
         var moves_container = document.getElementById('moves-text');
-        moves_container.innerHTML += `Jogador 1 venceu <br>`;
+        moves_container.innerHTML += `Player 1 wins! <br>`;
     }
 }
 

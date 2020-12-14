@@ -35,3 +35,8 @@
     clear: both;
     font-size: 25px;
 }
+
+#pokemon0-moves {
+    display: flex;
+    justify-content: space-between;
+}
