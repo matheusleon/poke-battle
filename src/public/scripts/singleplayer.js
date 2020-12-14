@@ -4,16 +4,10 @@ var health = new Array(2);
 var max_health = new Array(2);
 var pokemon = new Array(2);
 
-function clearMenu() {
-    var pokemon_menu = document.querySelector('#pokemon-menu');
-    pokemon_menu.innerHTML = "";
-}
-
-// TODO: Create functions to change visibility of menu and game
-// fuction changeVisibility() {}
+const pokemon_menu = document.getElementById('pokemon-menu');
+const pokemon_container = document.getElementById('pokemon-container');
 
 function capitalizeFirstLetter(string) {
-    console.log(string)
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
@@ -72,7 +66,6 @@ async function getPokemonMoves(pokemon_name, player_id) {
         pokemon_data.moves.forEach(element => {
             if (counter < 4 && element.version_group_details[0].move_learn_method.name == 'level-up') {
                 moves[player_id][counter] = [element.move.name, element.move.url];
-                console.log([element.move.name, element.move.url])
                 counter++;
             }
         });
@@ -90,7 +83,6 @@ function renderPokemonMoves(pokemon_name, player_id) {
         for (var i = 0; i < 4; i++) {
             var button_name = `pokemon${player_id}-move${i}`;
             var poke_move = document.getElementById(button_name);
-            console.log(moves[player_id][i]);
             poke_move.innerHTML = moves[player_id][i][0];
             poke_move.style.visibility = "visible";
         }
@@ -108,7 +100,6 @@ async function renderPokemonHealth(pokemon_name, player_id) {
     await fetch(pokemon_info_url)
     .then(response => response.json())
     .then(pokemon_data => {
-        console.log('health = ' + pokemon_data.stats[0].base_stat);
         health[player_id] = pokemon_data.stats[0].base_stat;
         max_health[player_id] = pokemon_data.stats[0].base_stat;
     });
@@ -139,17 +130,17 @@ async function playerMove(player_id, move_id) {
     await fetch(moves[player_id][move_id][1])
     .then(response => response.json())
     .then(move_data => {
-        //console.log('power = ' + move_data.power)
         damage = move_data.power
         message = move_data.flavor_text_entries[0].flavor_text
         health[player_id^1] = Math.max(0, health[player_id^1] - damage)
         updatePokemonHealth(player_id^1)
     })
+
     var moves_container = document.getElementById('moves-text');
     //moves_container.innerHTML += `Jogador 1 causou ${damage} de dano<br>`;
     moves_container.innerHTML += pokemon[player_id] + ' uses ' + moves[player_id][move_id][0] + `!<br>`;
     moves_container.innerHTML += message + `<br>`;
-
+    
     enableButtons(player_id^1);
     disableButtons(player_id);
 
@@ -186,18 +177,19 @@ function endGame() {
 }
 
 function startSingleplayer() {
-    //renderPokemonDropdownLists(); 
-    playGame();
+    pokemon_container.style.display = "none";
+    renderPokemonDropdownLists(); 
 }
 
 function playGame() {
-    //pokemon[0] = document.getElementById('pokemon_names_dropdown1').value
-    //pokemon[1] = document.getElementById('pokemon_names_dropdown2').value
-    pokemon[0] = 'charmander';
-    pokemon[1] = 'squirtle';
+    pokemon_container.style.display = "block";
+    pokemon_menu.style.display = "none";
+
+    pokemon[0] = document.getElementById('pokemon_names_dropdown1').value
+    pokemon[1] = document.getElementById('pokemon_names_dropdown2').value
 
     renderPokemon(pokemon[0], 0);
     renderPokemon(pokemon[1], 1);
+
     disableButtons(1);
-    clearMenu();
 }
